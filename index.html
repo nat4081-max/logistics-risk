@@ -1048,7 +1048,7 @@ body {
   box-shadow: 0 0 0 3px rgba(0, 91, 172, 0.2) !important;
 }
 
-/* Admin Lock Box */
+/* Admin Lock Box & Modals */
 .admin-lock-box {
   background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
   border: 1.5px dashed #93C5FD;
@@ -1089,6 +1089,29 @@ body {
   border-radius: 999px;
   font-size: 0.74rem;
   font-weight: 600;
+}
+
+.inline-feedback-msg {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  display: none;
+}
+
+.inline-feedback-msg.error {
+  display: inline-block;
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FCA5A5;
+}
+
+.inline-feedback-msg.success {
+  display: inline-block;
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #6EE7B7;
 }
 
 /* Usage Log Table & Controls */
@@ -1191,6 +1214,24 @@ body {
   font-size: 0.78rem;
 }
 
+/* Admin Settings Panel inside Unlocked View */
+.admin-inline-panel {
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-inline-panel.active {
+  display: flex;
+}
+
 /* Mobile Optimization for All Smartphones (Vivo V23 5G, Android, iPhone) */
 @media (max-width: 768px) {
   .tower-header {
@@ -1266,18 +1307,17 @@ body {
     height: 300px;
   }
 }
-
   </style>
 </head>
 <body>
 
-  <!-- แบนเนอร์อัจฉริยะสำหรับมือถือ Android/Vivo ที่เปิดจากไฟล์ดาวน์โหลด (จะซ่อนอัตโนมัติทันทีเมื่อ JavaScript ทำงาน) -->
+  <!-- แบนเนอร์อัจฉริยะสำหรับมือถือ Android/Vivo ที่เปิดจากไฟล์ดาวน์โหลด (ชี้ไปยัง GitHub Pages ถาวร และซ่อนอัตโนมัติทันทีเมื่อ JavaScript ทำงาน) -->
   <div id="androidFileModeBanner" class="no-print" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border-bottom:3px solid #F59E0B; padding:0.9rem 1rem; text-align:center;">
     <div style="font-size:0.88rem; font-weight:700; color:#92400E; margin-bottom:0.45rem;">
       📱 สำหรับมือถือ Vivo / Android: หากเปิดจากไฟล์ดาวน์โหลดในเครื่อง ระบบมือถือจะปิดปุ่มกดอัตโนมัติ
     </div>
-    <a href="https://htmlpreview.github.io/?https://ntfy.sh/file/mc9zg3CDP11y.html" style="display:inline-block; background:#00A651; color:#FFFFFF; font-weight:700; font-size:0.92rem; padding:0.6rem 1.2rem; border-radius:999px; text-decoration:none; box-shadow:0 3px 10px rgba(0,166,81,0.35);">
-      🚀 แตะปุ่มนี้เพื่อเข้าใช้งานแอปโหมดมือถือเต็มรูปแบบ (คลิกได้ทุกปุ่ม 100%)
+    <a href="https://nat4081-max.github.io/logistics-risk/" target="_blank" rel="noopener" style="display:inline-block; background:#00A651; color:#FFFFFF; font-weight:700; font-size:0.92rem; padding:0.6rem 1.2rem; border-radius:999px; text-decoration:none; box-shadow:0 3px 10px rgba(0,166,81,0.35);">
+      🚀 แตะปุ่มนี้เพื่อเข้าใช้งานเว็บแอปบน GitHub Pages (คลิกได้ทุกปุ่ม 100%)
     </a>
   </div>
 
@@ -1285,7 +1325,7 @@ body {
   <div id="loadingOverlay" class="loading-overlay">
     <div class="loading-box">
       <div class="spinner"></div>
-      <h3 style="color:#003E78; font-size:1.05rem; margin-bottom:0.35rem;">กำลังบันทึกทะเบียนรถขึ้น Cloud และวิเคราะห์ความเสี่ยง AI...</h3>
+      <h3 style="color:#003E78; font-size:1.05rem; margin-bottom:0.35rem;">กำลังบันทึกทะเบียนรถขึ้น Google Sheets Cloud และวิเคราะห์ความเสี่ยง AI...</h3>
       <p style="font-size:0.8rem; color:#475569;">เชื่อมต่อแผนที่ทางหลวง สภาพอากาศจริง ข่าวสาร และมาตรฐานการขนส่งไทย</p>
     </div>
   </div>
@@ -1300,20 +1340,24 @@ body {
         <div class="brand-title">
           <h1>
             LOGISTICS CONTROL TOWER
-            <span class="brand-badge">CLOUD SYNC + MOBILE READY</span>
+            <span class="brand-badge">GOOGLE SHEETS CLOUD + GITHUB PAGES</span>
           </h1>
           <div class="brand-subtitle">ระบบประเมินความเสี่ยงเส้นทางการขนส่งอัจฉริยะ (ตั้งต้น อ.วังน้อย ➔ ปลายทางทั่วประเทศ)</div>
         </div>
       </div>
 
       <div class="header-status">
+        <a href="https://nat4081-max.github.io/logistics-risk/" target="_blank" rel="noopener" class="status-pill" style="color:#fff; text-decoration:none; background:rgba(255,255,255,0.16); border-color:rgba(255,255,255,0.35);">
+          <i class="fa-solid fa-globe"></i>
+          <span>เว็บหลัก: nat4081-max.github.io/logistics-risk</span>
+        </a>
         <a href="#usageLogSection" class="status-pill" style="color:#fff; text-decoration:none; background:rgba(0,166,81,0.3); border-color:#00A651;">
           <i class="fa-solid fa-user-shield"></i>
           <span>สำหรับผู้ดูแลระบบ (ดูประวัติรวม)</span>
         </a>
         <div class="status-pill">
           <span class="pulse-dot"></span>
-          <span>Cloud Sync: ออนไลน์</span>
+          <span>Google Sheets Cloud: ออนไลน์</span>
         </div>
         <div class="status-pill">
           <i class="fa-regular fa-clock"></i>
@@ -1332,7 +1376,7 @@ body {
     <aside class="card input-sidebar">
       <div class="card-header">
         <h2><i class="fa-solid fa-sliders"></i> กรอกทะเบียนรถและเส้นทางขนส่ง</h2>
-        <span class="risk-badge risk-LOW" style="font-size:0.68rem;">Cloud Auto-Log</span>
+        <span class="risk-badge risk-LOW" style="font-size:0.68rem;">Google Cloud Auto-Log</span>
       </div>
 
       <div class="card-body">
@@ -1423,7 +1467,7 @@ body {
               </button>
               <button type="button" class="preset-chip"
                 data-o-prov="พระนครศรีอยุธยา" data-o-dist="วังน้อย (ศูนย์กระจายสินค้า)"
-                data-d-prov="พิษณุโลก" data-d-dist="เมืองพิษณุโลก"
+                data-d-prov="พิษณุโลก" data-d-dist="เมืองพิษณุโลก (สี่แยกอินโดจีน)"
                 data-veh="รถพ่วง 18 ล้อ" data-slot="เช้า" data-cargo="Feed" data-urg="Medium">
                 วังน้อย ➔ พิษณุโลก (สายเหนือ)
               </button>
@@ -1478,13 +1522,13 @@ body {
             <div class="form-group">
               <label class="form-label" for="originProvince">2. จังหวัดต้นทาง <span class="req">*</span></label>
               <select id="originProvince" class="form-control" required>
-                <option value="กรุงเทพมหานคร">กรุงเทพมหานคร (กรุงเทพฯ และปริมณฑล)</option><option value="สมุทรปราการ">สมุทรปราการ (กรุงเทพฯ และปริมณฑล)</option><option value="นนทบุรี">นนทบุรี (กรุงเทพฯ และปริมณฑล)</option><option value="ปทุมธานี">ปทุมธานี (กรุงเทพฯ และปริมณฑล)</option><option value="สมุทรสาคร">สมุทรสาคร (กรุงเทพฯ และปริมณฑล)</option><option value="นครปฐม">นครปฐม (กรุงเทพฯ และปริมณฑล)</option><option value="พระนครศรีอยุธยา" selected>พระนครศรีอยุธยา (ภาคกลาง)</option><option value="สระบุรี">สระบุรี (ภาคกลาง)</option><option value="ลพบุรี">ลพบุรี (ภาคกลาง)</option><option value="อ่างทอง">อ่างทอง (ภาคกลาง)</option><option value="สิงห์บุรี">สิงห์บุรี (ภาคกลาง)</option><option value="ชัยนาท">ชัยนาท (ภาคกลาง)</option><option value="สุพรรณบุรี">สุพรรณบุรี (ภาคกลาง)</option><option value="นครนายก">นครนายก (ภาคกลาง)</option><option value="สมุทรสงคราม">สมุทรสงคราม (ภาคกลาง)</option><option value="นครสวรรค์">นครสวรรค์ (ภาคกลาง)</option><option value="อุทัยธานี">อุทัยธานี (ภาคกลาง)</option><option value="กำแพงเพชร">กำแพงเพชร (ภาคกลาง)</option><option value="พิจิตร">พิจิตร (ภาคกลาง)</option><option value="พิษณุโลก">พิษณุโลก (ภาคกลาง)</option><option value="สุโขทัย">สุโขทัย (ภาคกลาง)</option><option value="เพชรบูรณ์">เพชรบูรณ์ (ภาคกลาง)</option><option value="ชลบุรี">ชลบุรี (ภาคตะวันออก)</option><option value="ระยอง">ระยอง (ภาคตะวันออก)</option><option value="ฉะเชิงเทรา">ฉะเชิงเทรา (ภาคตะวันออก)</option><option value="ปราจีนบุรี">ปราจีนบุรี (ภาคตะวันออก)</option><option value="สระแก้ว">สระแก้ว (ภาคตะวันออก)</option><option value="จันทบุรี">จันทบุรี (ภาคตะวันออก)</option><option value="ตราด">ตราด (ภาคตะวันออก)</option><option value="นครราชสีมา">นครราชสีมา (ภาคตะวันออกเฉียงเหนือ)</option><option value="ขอนแก่น">ขอนแก่น (ภาคตะวันออกเฉียงเหนือ)</option><option value="อุดรธานี">อุดรธานี (ภาคตะวันออกเฉียงเหนือ)</option><option value="อุบลราชธานี">อุบลราชธานี (ภาคตะวันออกเฉียงเหนือ)</option><option value="บุรีรัมย์">บุรีรัมย์ (ภาคตะวันออกเฉียงเหนือ)</option><option value="สุรินทร์">สุรินทร์ (ภาคตะวันออกเฉียงเหนือ)</option><option value="ศรีสะเกษ">ศรีสะเกษ (ภาคตะวันออกเฉียงเหนือ)</option><option value="ชัยภูมิ">ชัยภูมิ (ภาคตะวันออกเฉียงเหนือ)</option><option value="มหาสารคาม">มหาสารคาม (ภาคตะวันออกเฉียงเหนือ)</option><option value="ร้อยเอ็ด">ร้อยเอ็ด (ภาคตะวันออกเฉียงเหนือ)</option><option value="กาฬสินธุ์">กาฬสินธุ์ (ภาคตะวันออกเฉียงเหนือ)</option><option value="สกลนคร">สกลนคร (ภาคตะวันออกเฉียงเหนือ)</option><option value="นครพนม">นครพนม (ภาคตะวันออกเฉียงเหนือ)</option><option value="มุกดาหาร">มุกดาหาร (ภาคตะวันออกเฉียงเหนือ)</option><option value="หนองคาย">หนองคาย (ภาคตะวันออกเฉียงเหนือ)</option><option value="เลย">เลย (ภาคตะวันออกเฉียงเหนือ)</option><option value="หนองบัวลำภู">หนองบัวลำภู (ภาคตะวันออกเฉียงเหนือ)</option><option value="ยโสธร">ยโสธร (ภาคตะวันออกเฉียงเหนือ)</option><option value="อำนาจเจริญ">อำนาจเจริญ (ภาคตะวันออกเฉียงเหนือ)</option><option value="บึงกาฬ">บึงกาฬ (ภาคตะวันออกเฉียงเหนือ)</option><option value="เชียงใหม่">เชียงใหม่ (ภาคเหนือ)</option><option value="ลำพูน">ลำพูน (ภาคเหนือ)</option><option value="ลำปาง">ลำปาง (ภาคเหนือ)</option><option value="เชียงราย">เชียงราย (ภาคเหนือ)</option><option value="แพร่">แพร่ (ภาคเหนือ)</option><option value="น่าน">น่าน (ภาคเหนือ)</option><option value="พะเยา">พะเยา (ภาคเหนือ)</option><option value="แม่ฮ่องสอน">แม่ฮ่องสอน (ภาคเหนือ)</option><option value="อุตรดิตถ์">อุตรดิตถ์ (ภาคเหนือ)</option><option value="ราชบุรี">ราชบุรี (ภาคตะวันตก)</option><option value="กาญจนบุรี">กาญจนบุรี (ภาคตะวันตก)</option><option value="เพชรบุรี">เพชรบุรี (ภาคตะวันตก)</option><option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์ (ภาคตะวันตก)</option><option value="ตาก">ตาก (ภาคตะวันตก)</option><option value="ชุมพร">ชุมพร (ภาคใต้)</option><option value="สุราษฎร์ธานี">สุราษฎร์ธานี (ภาคใต้)</option><option value="นครศรีธรรมราช">นครศรีธรรมราช (ภาคใต้)</option><option value="สงขลา">สงขลา (ภาคใต้)</option><option value="ภูเก็ต">ภูเก็ต (ภาคใต้)</option><option value="กระบี่">กระบี่ (ภาคใต้)</option><option value="พังงา">พังงา (ภาคใต้)</option><option value="ระนอง">ระนอง (ภาคใต้)</option><option value="ตรัง">ตรัง (ภาคใต้)</option><option value="พัทลุง">พัทลุง (ภาคใต้)</option><option value="สตูล">สตูล (ภาคใต้)</option><option value="ปัตตานี">ปัตตานี (ภาคใต้)</option><option value="ยะลา">ยะลา (ภาคใต้)</option><option value="นราธิวาส">นราธิวาส (ภาคใต้)</option>
+                <option value="พระนครศรีอยุธยา" selected>พระนครศรีอยุธยา (ภาคกลาง)</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label" for="originDistrict">3. อำเภอต้นทาง <span class="req">*</span></label>
               <select id="originDistrict" class="form-control" required>
-                <option value="วังน้อย (ศูนย์กระจายสินค้า)" selected>อ.วังน้อย (ศูนย์กระจายสินค้า)</option><option value="บางปะอิน (นิคมฯ)">อ.บางปะอิน (นิคมฯ)</option><option value="พระนครศรีอยุธยา">อ.พระนครศรีอยุธยา</option><option value="อุทัย (นิคมฯ โรจนะ)">อ.อุทัย (นิคมฯ โรจนะ)</option><option value="นครหลวง (ท่าเรือ/คลังสินค้า)">อ.นครหลวง (ท่าเรือ/คลังสินค้า)</option><option value="ภาชี">อ.ภาชี</option><option value="เสนา">อ.เสนา</option><option value="บางปะหัน">อ.บางปะหัน</option>
+                <option value="วังน้อย (ศูนย์กระจายสินค้า)" selected>อ.วังน้อย (ศูนย์กระจายสินค้า)</option>
               </select>
             </div>
           </div>
@@ -1494,13 +1538,13 @@ body {
             <div class="form-group">
               <label class="form-label" for="destProvince">4. จังหวัดปลายทาง <span class="req">*</span></label>
               <select id="destProvince" class="form-control" required>
-                <option value="กรุงเทพมหานคร">กรุงเทพมหานคร (กรุงเทพฯ และปริมณฑล)</option><option value="สมุทรปราการ">สมุทรปราการ (กรุงเทพฯ และปริมณฑล)</option><option value="นนทบุรี">นนทบุรี (กรุงเทพฯ และปริมณฑล)</option><option value="ปทุมธานี">ปทุมธานี (กรุงเทพฯ และปริมณฑล)</option><option value="สมุทรสาคร">สมุทรสาคร (กรุงเทพฯ และปริมณฑล)</option><option value="นครปฐม">นครปฐม (กรุงเทพฯ และปริมณฑล)</option><option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา (ภาคกลาง)</option><option value="สระบุรี">สระบุรี (ภาคกลาง)</option><option value="ลพบุรี">ลพบุรี (ภาคกลาง)</option><option value="อ่างทอง">อ่างทอง (ภาคกลาง)</option><option value="สิงห์บุรี">สิงห์บุรี (ภาคกลาง)</option><option value="ชัยนาท">ชัยนาท (ภาคกลาง)</option><option value="สุพรรณบุรี">สุพรรณบุรี (ภาคกลาง)</option><option value="นครนายก">นครนายก (ภาคกลาง)</option><option value="สมุทรสงคราม">สมุทรสงคราม (ภาคกลาง)</option><option value="นครสวรรค์">นครสวรรค์ (ภาคกลาง)</option><option value="อุทัยธานี">อุทัยธานี (ภาคกลาง)</option><option value="กำแพงเพชร">กำแพงเพชร (ภาคกลาง)</option><option value="พิจิตร">พิจิตร (ภาคกลาง)</option><option value="พิษณุโลก">พิษณุโลก (ภาคกลาง)</option><option value="สุโขทัย">สุโขทัย (ภาคกลาง)</option><option value="เพชรบูรณ์">เพชรบูรณ์ (ภาคกลาง)</option><option value="ชลบุรี">ชลบุรี (ภาคตะวันออก)</option><option value="ระยอง">ระยอง (ภาคตะวันออก)</option><option value="ฉะเชิงเทรา">ฉะเชิงเทรา (ภาคตะวันออก)</option><option value="ปราจีนบุรี">ปราจีนบุรี (ภาคตะวันออก)</option><option value="สระแก้ว">สระแก้ว (ภาคตะวันออก)</option><option value="จันทบุรี">จันทบุรี (ภาคตะวันออก)</option><option value="ตราด">ตราด (ภาคตะวันออก)</option><option value="นครราชสีมา" selected>นครราชสีมา (ภาคตะวันออกเฉียงเหนือ)</option><option value="ขอนแก่น">ขอนแก่น (ภาคตะวันออกเฉียงเหนือ)</option><option value="อุดรธานี">อุดรธานี (ภาคตะวันออกเฉียงเหนือ)</option><option value="อุบลราชธานี">อุบลราชธานี (ภาคตะวันออกเฉียงเหนือ)</option><option value="บุรีรัมย์">บุรีรัมย์ (ภาคตะวันออกเฉียงเหนือ)</option><option value="สุรินทร์">สุรินทร์ (ภาคตะวันออกเฉียงเหนือ)</option><option value="ศรีสะเกษ">ศรีสะเกษ (ภาคตะวันออกเฉียงเหนือ)</option><option value="ชัยภูมิ">ชัยภูมิ (ภาคตะวันออกเฉียงเหนือ)</option><option value="มหาสารคาม">มหาสารคาม (ภาคตะวันออกเฉียงเหนือ)</option><option value="ร้อยเอ็ด">ร้อยเอ็ด (ภาคตะวันออกเฉียงเหนือ)</option><option value="กาฬสินธุ์">กาฬสินธุ์ (ภาคตะวันออกเฉียงเหนือ)</option><option value="สกลนคร">สกลนคร (ภาคตะวันออกเฉียงเหนือ)</option><option value="นครพนม">นครพนม (ภาคตะวันออกเฉียงเหนือ)</option><option value="มุกดาหาร">มุกดาหาร (ภาคตะวันออกเฉียงเหนือ)</option><option value="หนองคาย">หนองคาย (ภาคตะวันออกเฉียงเหนือ)</option><option value="เลย">เลย (ภาคตะวันออกเฉียงเหนือ)</option><option value="หนองบัวลำภู">หนองบัวลำภู (ภาคตะวันออกเฉียงเหนือ)</option><option value="ยโสธร">ยโสธร (ภาคตะวันออกเฉียงเหนือ)</option><option value="อำนาจเจริญ">อำนาจเจริญ (ภาคตะวันออกเฉียงเหนือ)</option><option value="บึงกาฬ">บึงกาฬ (ภาคตะวันออกเฉียงเหนือ)</option><option value="เชียงใหม่">เชียงใหม่ (ภาคเหนือ)</option><option value="ลำพูน">ลำพูน (ภาคเหนือ)</option><option value="ลำปาง">ลำปาง (ภาคเหนือ)</option><option value="เชียงราย">เชียงราย (ภาคเหนือ)</option><option value="แพร่">แพร่ (ภาคเหนือ)</option><option value="น่าน">น่าน (ภาคเหนือ)</option><option value="พะเยา">พะเยา (ภาคเหนือ)</option><option value="แม่ฮ่องสอน">แม่ฮ่องสอน (ภาคเหนือ)</option><option value="อุตรดิตถ์">อุตรดิตถ์ (ภาคเหนือ)</option><option value="ราชบุรี">ราชบุรี (ภาคตะวันตก)</option><option value="กาญจนบุรี">กาญจนบุรี (ภาคตะวันตก)</option><option value="เพชรบุรี">เพชรบุรี (ภาคตะวันตก)</option><option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์ (ภาคตะวันตก)</option><option value="ตาก">ตาก (ภาคตะวันตก)</option><option value="ชุมพร">ชุมพร (ภาคใต้)</option><option value="สุราษฎร์ธานี">สุราษฎร์ธานี (ภาคใต้)</option><option value="นครศรีธรรมราช">นครศรีธรรมราช (ภาคใต้)</option><option value="สงขลา">สงขลา (ภาคใต้)</option><option value="ภูเก็ต">ภูเก็ต (ภาคใต้)</option><option value="กระบี่">กระบี่ (ภาคใต้)</option><option value="พังงา">พังงา (ภาคใต้)</option><option value="ระนอง">ระนอง (ภาคใต้)</option><option value="ตรัง">ตรัง (ภาคใต้)</option><option value="พัทลุง">พัทลุง (ภาคใต้)</option><option value="สตูล">สตูล (ภาคใต้)</option><option value="ปัตตานี">ปัตตานี (ภาคใต้)</option><option value="ยะลา">ยะลา (ภาคใต้)</option><option value="นราธิวาส">นราธิวาส (ภาคใต้)</option>
+                <option value="นครราชสีมา" selected>นครราชสีมา (ภาคตะวันออกเฉียงเหนือ)</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label" for="destDistrict">5. อำเภอปลายทาง <span class="req">*</span></label>
               <select id="destDistrict" class="form-control" required>
-                <option value="ปากช่อง (กลางดง/มิตรภาพ)">อ.ปากช่อง (กลางดง/มิตรภาพ)</option><option value="สีคิ้ว">อ.สีคิ้ว</option><option value="เมืองนครราชสีมา" selected>อ.เมืองนครราชสีมา</option><option value="สูงเนิน (นิคมฯ นวนคร)">อ.สูงเนิน (นิคมฯ นวนคร)</option><option value="ปักธงชัย (ทล.304)">อ.ปักธงชัย (ทล.304)</option><option value="วังน้ำเขียว (ทางเขา 304)">อ.วังน้ำเขียว (ทางเขา 304)</option><option value="พิมาย">อ.พิมาย</option><option value="ด่านขุนทด">อ.ด่านขุนทด</option><option value="บัวใหญ่">อ.บัวใหญ่</option>
+                <option value="เมืองนครราชสีมา" selected>อ.เมืองนครราชสีมา</option>
               </select>
             </div>
           </div>
@@ -1629,7 +1673,7 @@ body {
       <div class="card">
         <div class="card-header">
           <h2><i class="fa-solid fa-map-location-dot"></i> แผนที่วิเคราะห์ความเสี่ยงเส้นทาง (Google Maps Traffic & Alternative Routes)</h2>
-          <a id="btnOpenGoogleMaps" href="https://www.google.com/maps/dir/?api=1&origin=%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2%20%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%AD%E0%B8%A2%E0%B8%B8%E0%B8%98%E0%B8%A2%E0%B8%B2&destination=%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%AA%E0%B8%B5%E0%B8%A1%E0%B8%B2&travelmode=driving" target="_blank" rel="noopener" class="btn btn-outline no-print">
+          <a id="btnOpenGoogleMaps" href="https://www.google.com/maps/dir/" target="_blank" rel="noopener" class="btn btn-outline no-print">
             <i class="fa-solid fa-diamond-turn-right"></i> เปิดนำทางในแอป Google Maps
           </a>
         </div>
@@ -1666,9 +1710,9 @@ body {
 
           <!-- ปุ่มจัดการสำหรับผู้ดูแลระบบ (แสดงเฉพาะเมื่อปลดล็อก Admin แล้ว) -->
           <div id="adminHeaderActions" class="no-print" style="display:none; gap:0.45rem; flex-wrap:wrap; align-items:center;">
-            <span class="cloud-sync-badge"><i class="fa-solid fa-cloud"></i> Cloud Sync Active</span>
+            <span class="cloud-sync-badge"><i class="fa-solid fa-cloud-check"></i> Google Sheets Cloud Active</span>
             <button type="button" id="btnSyncCloud" class="btn btn-outline" style="padding:0.4rem 0.75rem; font-size:0.76rem;">
-              <i class="fa-solid fa-cloud-arrow-down"></i> ซิงค์ข้อมูลล่าสุดจากทุกเครื่อง
+              <i class="fa-solid fa-cloud-arrow-down"></i> ซิงค์ข้อมูลล่าสุดจาก Google Sheets
             </button>
             <button type="button" id="btnExportCsv" class="btn btn-success" style="padding:0.4rem 0.85rem; font-size:0.78rem;">
               <i class="fa-solid fa-file-excel"></i> ดาวน์โหลดไฟล์ Excel (.XLSX)
@@ -1677,7 +1721,7 @@ body {
               <i class="fa-solid fa-key"></i> เปลี่ยนรหัส
             </button>
             <button type="button" id="btnClearLogs" class="btn btn-reset" style="padding:0.4rem 0.65rem; font-size:0.75rem;">
-              <i class="fa-regular fa-trash-can"></i> ล้างประวัติ
+              <i class="fa-regular fa-trash-can"></i> ล้างประวัติในเครื่อง
             </button>
             <button type="button" id="btnLockAdmin" class="btn btn-reset" style="padding:0.4rem 0.75rem; font-size:0.76rem; background:#FEE2E2; color:#991B1B; border-color:#FCA5A5;">
               <i class="fa-solid fa-lock"></i> ล็อกหน้าจอ
@@ -1695,7 +1739,7 @@ body {
               สงวนสิทธิ์การดูประวัติผู้ใช้งานและทะเบียนรถทั้งหมดเฉพาะผู้ดูแลระบบ (Admin Only)
             </h3>
             <p style="font-size:0.8rem; color:#475569; max-width:620px; margin:0 auto;">
-              ผู้ใช้งานทั่วไปสามารถกรอกทะเบียนรถและวิเคราะห์เส้นทางได้ตามปกติ โดยระบบจะส่งข้อมูลทะเบียนรถและเส้นทางเข้าสู่ฐานข้อมูลกลางอัตโนมัติ (ผู้ใช้งานคนอื่นไม่สามารถเปิดดูประวัติรวมได้)
+              ผู้ใช้งานทั่วไปสามารถกรอกทะเบียนรถและวิเคราะห์เส้นทางได้ตามปกติ โดยระบบจะส่งข้อมูลทะเบียนรถและเส้นทางเข้าสู่ฐานข้อมูลกลาง <strong>Google Sheets Cloud</strong> อัตโนมัติ (รหัสเริ่มต้นสำหรับผู้ดูแลระบบ: <code>1234</code>)
             </p>
             <div class="admin-pin-row">
               <input
@@ -1709,10 +1753,33 @@ body {
                 <i class="fa-solid fa-unlock-keyhole"></i> ปลดล็อกดูข้อมูลทั้งหมด (Admin)
               </button>
             </div>
+            <div id="adminPinFeedback" class="inline-feedback-msg"></div>
           </div>
 
           <!-- เนื้อหาตารางประวัติทั้งหมด (แสดงเฉพาะเมื่อผู้ดูแลระบบปลดล็อกแล้ว) -->
           <div id="adminUnlockedContent" style="display:none;">
+            <!-- แถบเปลี่ยนรหัส PIN หรือยืนยันการล้างข้อมูลแบบไม่ต้องพึ่งพา Popup ของเบราว์เซอร์ -->
+            <div id="adminPinChangePanel" class="admin-inline-panel">
+              <div style="font-size:0.82rem; font-weight:600; color:#003E78;">
+                <i class="fa-solid fa-key"></i> ตั้งรหัสผ่าน Admin PIN ใหม่ (อย่างน้อย 4 หลัก):
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                <input type="text" id="newAdminPinInput" class="form-control" style="width:160px; padding:0.4rem 0.65rem; font-size:0.84rem;" placeholder="เช่น 9999" />
+                <button type="button" id="btnSaveNewPin" class="btn btn-success" style="padding:0.4rem 0.85rem; font-size:0.78rem;">บันทึกรหัสใหม่</button>
+                <button type="button" id="btnCancelNewPin" class="btn btn-reset" style="padding:0.4rem 0.75rem; font-size:0.78rem;">ยกเลิก</button>
+              </div>
+            </div>
+
+            <div id="adminClearConfirmPanel" class="admin-inline-panel" style="background:#FEF2F2; border-color:#FCA5A5;">
+              <div style="font-size:0.82rem; font-weight:600; color:#991B1B;">
+                <i class="fa-solid fa-triangle-exclamation"></i> ยืนยันการล้างประวัติที่เก็บไว้ในเครื่องนี้หรือไม่? (ข้อมูลบน Google Sheets Cloud จะยังคงอยู่)
+              </div>
+              <div style="display:flex; gap:0.5rem; align-items:center;">
+                <button type="button" id="btnConfirmClearLogs" class="btn" style="background:#E53935; color:#fff; padding:0.4rem 0.85rem; font-size:0.78rem;">ยืนยันล้างประวัติในเครื่อง</button>
+                <button type="button" id="btnCancelClearLogs" class="btn btn-reset" style="padding:0.4rem 0.75rem; font-size:0.78rem;">ยกเลิก</button>
+              </div>
+            </div>
+
             <div class="log-stats-row">
               <div class="log-stat-box">
                 <div class="log-stat-label">จำนวนครั้งที่เข้าใช้งานทั้งหมด (ทุกเครื่อง)</div>
@@ -1739,8 +1806,8 @@ body {
                 class="log-search-input"
                 placeholder="🔍 ค้นหาจาก หมายเลขทะเบียนรถ, จังหวัดป้ายทะเบียน, ชื่อผู้ใช้งาน/พขร., จังหวัดต้นทาง หรือ จังหวัดปลายทาง..."
               />
-              <span style="font-size:0.75rem; color:#047857; font-weight:500;">
-                <i class="fa-solid fa-tower-broadcast"></i> ซิงค์ข้อมูลออนไลน์จากมือถือและคอมพิวเตอร์ทุกเครื่องแบบ Real-Time
+              <span id="cloudSyncStatusText" style="font-size:0.75rem; color:#047857; font-weight:500;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> เชื่อมต่อฐานข้อมูลถาวร Google Sheets Cloud + Real-Time Sync แล้ว
               </span>
             </div>
 
@@ -2301,7 +2368,7 @@ window.THAI_HIGHWAY_HOTSPOTS = [
 
 window.RiskEngine = {
   // Helper: Fetch พร้อม Timeout ป้องกันหน้าจอค้างเวลาเน็ตมือถือช้าหรืออับสัญญาณ
-  async fetchWithTimeout(url, options = {}, timeoutMs = 3800) {
+  async fetchWithTimeout(url, options = {}, timeoutMs = 4500) {
     if (typeof AbortController !== "undefined") {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -2912,7 +2979,7 @@ window.SafeStore = {
 };
 
 // ============================================================================
-// UI CONTROLLER, INTERACTIVE GOOGLE MAP LAYER, CHARTS & REPORT GENERATOR
+// UI CONTROLLER, GOOGLE SHEETS CLOUD SYNC, INTERACTIVE MAP & REPORT GENERATOR
 // ============================================================================
 
 window.AppController = {
@@ -2925,6 +2992,7 @@ window.AppController = {
   selectedRouteIndex: 0,
   STORAGE_KEY: "KASETPHAND_TRANSPORT_RISK_LOGS_V1",
   CLOUD_TOPIC: "kasetphand_logistics_risk_log_v2_9988",
+  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbweFrqBhas4z2EHZ2SyZcVvpK9pZyRIqC1hM94Xi4gQIiKdx4RE47EhwIbFSu4IjBXlOg/exec",
   ADMIN_PIN_KEY: "KASETPHAND_ADMIN_PIN_V1",
   DEFAULT_ADMIN_PIN: "1234",
   isAdminUnlocked: false,
@@ -3029,73 +3097,126 @@ window.AppController = {
     const logs = this.getUsageLogs();
     if (!logs.some(l => l.id === entry.id)) {
       logs.unshift(entry);
-      if (logs.length > 500) logs.length = 500;
+      if (logs.length > 1000) logs.length = 1000;
       window.SafeStore.set(this.STORAGE_KEY, JSON.stringify(logs));
     }
     this.renderUsageLogs();
     this.pushLogToCloud(entry);
   },
 
-  // ส่งข้อมูลการใช้งานของทุกคนขึ้น Cloud Database กลางอัตโนมัติ
+  // ส่งข้อมูลการใช้งานของทุกคนขึ้น Google Sheets Cloud ถาวร + Real-Time Channel อัตโนมัติ
   async pushLogToCloud(entry) {
+    const statusEl = document.getElementById("userCloudSaveNotice");
+    if (statusEl) {
+      statusEl.style.display = "block";
+      statusEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> กำลังบันทึกทะเบียน <strong>${entry.licensePlate}</strong> ไปยัง Google Sheets Cloud...`;
+    }
+
+    let googleSaved = false;
+    try {
+      if (this.GOOGLE_SCRIPT_URL && this.GOOGLE_SCRIPT_URL.startsWith("https://script.google.com")) {
+        await fetch(this.GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(entry)
+        });
+        googleSaved = true;
+      }
+    } catch (gErr) {
+      console.warn("Google Apps Script POST warning:", gErr);
+    }
+
     try {
       await window.RiskEngine.fetchWithTimeout(`https://ntfy.sh/${this.CLOUD_TOPIC}`, {
         method: "POST",
         body: JSON.stringify(entry)
       }, 3500);
-      const statusEl = document.getElementById("userCloudSaveNotice");
-      if (statusEl) {
-        statusEl.style.display = "block";
-        statusEl.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> บันทึกทะเบียน <strong>${entry.licensePlate}</strong> ส่งเข้าฐานข้อมูลกลางของผู้ดูแลระบบเรียบร้อยแล้ว`;
-      }
-    } catch (e) {
-      const statusEl = document.getElementById("userCloudSaveNotice");
-      if (statusEl) {
-        statusEl.style.display = "block";
+    } catch (nErr) {
+      console.warn("Realtime channel push warning:", nErr);
+    }
+
+    if (statusEl) {
+      statusEl.style.display = "block";
+      if (googleSaved) {
+        statusEl.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> บันทึกทะเบียน <strong>${entry.licensePlate}</strong> ลงฐานข้อมูล <strong>Google Sheets Cloud</strong> เรียบร้อยแล้ว`;
+      } else {
         statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> บันทึกทะเบียน <strong>${entry.licensePlate}</strong> ลงในระบบเรียบร้อยแล้ว`;
       }
     }
   },
 
-  // ดึงข้อมูลการใช้งานจากทุกเครื่อง/ทุกมือถือมารวมที่หน้า Admin
+  // ดึงข้อมูลการใช้งานจาก Google Sheets Cloud + Real-Time Channel มารวมที่หน้า Admin
   async syncFromCloud() {
     const syncBtn = document.getElementById("btnSyncCloud");
+    const syncStatusText = document.getElementById("cloudSyncStatusText");
     if (syncBtn) {
-      syncBtn.innerHTML = `<i class="fa-solid fa-arrows-rotate fa-spin"></i> กำลังซิงค์ข้อมูลจากทุกเครื่อง...`;
+      syncBtn.innerHTML = `<i class="fa-solid fa-arrows-rotate fa-spin"></i> กำลังซิงค์จาก Google Sheets...`;
     }
     try {
-      const resp = await window.RiskEngine.fetchWithTimeout(`https://ntfy.sh/${this.CLOUD_TOPIC}/json?poll=1&since=all`, {}, 4000);
-      if (resp.ok) {
-        const text = await resp.text();
-        const lines = text.split("\n").filter(Boolean);
-        const localLogs = this.getUsageLogs();
-        const existingIds = new Set(localLogs.map(l => l.id));
-        let added = 0;
+      const localLogs = this.getUsageLogs();
+      const existingIds = new Set(localLogs.map(l => l.id));
+      let added = 0;
 
-        for (const line of lines) {
-          try {
-            const wrapper = JSON.parse(line);
-            if (wrapper.event === "message" && wrapper.message) {
-              const item = JSON.parse(wrapper.message);
-              if (item && item.id && item.licensePlate && !existingIds.has(item.id)) {
-                localLogs.unshift(item);
-                existingIds.add(item.id);
+      // 1. ดึงจาก Google Sheets Cloud ถาวร
+      if (this.GOOGLE_SCRIPT_URL && this.GOOGLE_SCRIPT_URL.startsWith("https://script.google.com")) {
+        try {
+          const gResp = await window.RiskEngine.fetchWithTimeout(this.GOOGLE_SCRIPT_URL, {}, 6500);
+          if (gResp.ok) {
+            const gJson = await gResp.json();
+            const rows = Array.isArray(gJson) ? gJson : (gJson && Array.isArray(gJson.data) ? gJson.data : []);
+            rows.forEach(item => {
+              if (!item) return;
+              const entry = typeof item === "string" ? JSON.parse(item) : item;
+              if (entry && entry.id && entry.licensePlate && !existingIds.has(entry.id)) {
+                localLogs.push(entry);
+                existingIds.add(entry.id);
                 added++;
               }
-            }
-          } catch (innerErr) {}
+            });
+          }
+        } catch (gSyncErr) {
+          console.warn("Google Sheets GET sync warning:", gSyncErr);
         }
-
-        if (added > 0) {
-          window.SafeStore.set(this.STORAGE_KEY, JSON.stringify(localLogs.slice(0, 500)));
-        }
-        this.renderUsageLogs();
       }
+
+      // 2. ดึงจาก Real-time Stream ล่าสุด
+      try {
+        const resp = await window.RiskEngine.fetchWithTimeout(`https://ntfy.sh/${this.CLOUD_TOPIC}/json?poll=1&since=all`, {}, 4000);
+        if (resp.ok) {
+          const text = await resp.text();
+          const lines = text.split("\n").filter(Boolean);
+          for (const line of lines) {
+            try {
+              const wrapper = JSON.parse(line);
+              if (wrapper.event === "message" && wrapper.message) {
+                const item = JSON.parse(wrapper.message);
+                if (item && item.id && item.licensePlate && !existingIds.has(item.id)) {
+                  localLogs.unshift(item);
+                  existingIds.add(item.id);
+                  added++;
+                }
+              }
+            } catch (innerErr) {}
+          }
+        }
+      } catch (nSyncErr) {
+        console.warn("Realtime poll warning:", nSyncErr);
+      }
+
+      if (added > 0) {
+        window.SafeStore.set(this.STORAGE_KEY, JSON.stringify(localLogs.slice(0, 1000)));
+      }
+      if (syncStatusText) {
+        const nowTime = new Date().toLocaleTimeString("th-TH");
+        syncStatusText.innerHTML = `<i class="fa-solid fa-circle-check"></i> ซิงค์ข้อมูลจาก Google Sheets Cloud ล่าสุดเมื่อ ${nowTime} (รวม ${localLogs.length} รายการ)`;
+      }
+      this.renderUsageLogs();
     } catch (e) {
       console.warn("Cloud fetch warning:", e);
     } finally {
       if (syncBtn) {
-        syncBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-down"></i> ซิงค์ข้อมูลล่าสุดจากทุกเครื่อง`;
+        syncBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-down"></i> ซิงค์ข้อมูลล่าสุดจาก Google Sheets`;
       }
     }
   },
@@ -3113,7 +3234,7 @@ window.AppController = {
               const logs = this.getUsageLogs();
               if (!logs.some(l => l.id === item.id)) {
                 logs.unshift(item);
-                window.SafeStore.set(this.STORAGE_KEY, JSON.stringify(logs.slice(0, 500)));
+                window.SafeStore.set(this.STORAGE_KEY, JSON.stringify(logs.slice(0, 1000)));
                 this.renderUsageLogs();
               }
             }
@@ -3217,6 +3338,16 @@ window.AppController = {
     this.updateVehicleSpecCard("รถพ่วง 18 ล้อ");
   },
 
+  showPinFeedback(msg, isError = true) {
+    const fb = document.getElementById("adminPinFeedback");
+    if (!fb) return;
+    fb.textContent = msg;
+    fb.className = "inline-feedback-msg " + (isError ? "error" : "success");
+    setTimeout(() => {
+      fb.className = "inline-feedback-msg";
+    }, 4000);
+  },
+
   bindEvents() {
     document.getElementById("originProvince").addEventListener("change", () => {
       this.populateDistricts("originProvince", "originDistrict");
@@ -3290,7 +3421,11 @@ window.AppController = {
       const plateNumInput = document.getElementById("licensePlateNumber");
       if (plateNumInput && !plateNumInput.value.trim()) {
         plateNumInput.focus();
-        alert("กรุณากรอกหมวด/เลขทะเบียนรถก่อนกดวิเคราะห์เส้นทาง");
+        const noticeEl = document.getElementById("userCloudSaveNotice");
+        if (noticeEl) {
+          noticeEl.style.display = "block";
+          noticeEl.innerHTML = `<span style="color:#991B1B;"><i class="fa-solid fa-circle-exclamation"></i> กรุณากรอกหมวด/เลขทะเบียนรถก่อนกดวิเคราะห์เส้นทาง</span>`;
+        }
         return;
       }
       this.runAnalysis(true);
@@ -3325,13 +3460,27 @@ window.AppController = {
       btnExportCsv.addEventListener("click", () => this.exportLogsToExcelCSV());
     }
 
+    // Inline Clear Logs Confirmation (ทำงานได้ทุกสภาพแวดล้อมโดยไม่ต้องใช้ confirm())
     const btnClearLogs = document.getElementById("btnClearLogs");
-    if (btnClearLogs) {
+    const clearPanel = document.getElementById("adminClearConfirmPanel");
+    const btnConfirmClear = document.getElementById("btnConfirmClearLogs");
+    const btnCancelClear = document.getElementById("btnCancelClearLogs");
+
+    if (btnClearLogs && clearPanel) {
       btnClearLogs.addEventListener("click", () => {
-        if (confirm("ต้องการล้างประวัติการใช้งานในเครื่องนี้หรือไม่?")) {
-          window.SafeStore.remove(this.STORAGE_KEY);
-          this.renderUsageLogs();
-        }
+        clearPanel.classList.toggle("active");
+      });
+    }
+    if (btnCancelClear && clearPanel) {
+      btnCancelClear.addEventListener("click", () => {
+        clearPanel.classList.remove("active");
+      });
+    }
+    if (btnConfirmClear && clearPanel) {
+      btnConfirmClear.addEventListener("click", () => {
+        window.SafeStore.remove(this.STORAGE_KEY);
+        clearPanel.classList.remove("active");
+        this.renderUsageLogs();
       });
     }
 
@@ -3346,7 +3495,7 @@ window.AppController = {
           adminPinInput.value = "";
           this.updateAdminView();
         } else {
-          alert("รหัสผ่านผู้ดูแลระบบ (Admin PIN) ไม่ถูกต้อง!");
+          this.showPinFeedback("รหัสผ่านผู้ดูแลระบบ (Admin PIN) ไม่ถูกต้อง! (ค่าเริ่มต้นคือ 1234)", true);
           adminPinInput.select();
         }
       };
@@ -3374,15 +3523,37 @@ window.AppController = {
       });
     }
 
+    // Inline Change PIN Panel (ทำงานได้ทุกสภาพแวดล้อมโดยไม่ต้องใช้ prompt())
     const btnChangePin = document.getElementById("btnChangePin");
-    if (btnChangePin) {
+    const pinPanel = document.getElementById("adminPinChangePanel");
+    const newPinInput = document.getElementById("newAdminPinInput");
+    const btnSaveNewPin = document.getElementById("btnSaveNewPin");
+    const btnCancelNewPin = document.getElementById("btnCancelNewPin");
+
+    if (btnChangePin && pinPanel) {
       btnChangePin.addEventListener("click", () => {
-        const newPin = prompt("กำหนดรหัสผ่านผู้ดูแลระบบ (Admin PIN) ใหม่:", this.getAdminPin());
-        if (newPin && newPin.trim().length >= 4) {
-          window.SafeStore.set(this.ADMIN_PIN_KEY, newPin.trim());
-          alert(`เปลี่ยนรหัสผ่าน Admin PIN เป็น "${newPin.trim()}" เรียบร้อยแล้ว`);
-        } else if (newPin !== null) {
-          alert("กรุณาตั้งรหัสอย่างน้อย 4 หลัก");
+        pinPanel.classList.toggle("active");
+        if (newPinInput) {
+          newPinInput.value = this.getAdminPin();
+          newPinInput.focus();
+        }
+      });
+    }
+    if (btnCancelNewPin && pinPanel) {
+      btnCancelNewPin.addEventListener("click", () => {
+        pinPanel.classList.remove("active");
+      });
+    }
+    if (btnSaveNewPin && pinPanel && newPinInput) {
+      btnSaveNewPin.addEventListener("click", () => {
+        const val = newPinInput.value.trim();
+        if (val.length >= 4) {
+          window.SafeStore.set(this.ADMIN_PIN_KEY, val);
+          pinPanel.classList.remove("active");
+          const syncStatusText = document.getElementById("cloudSyncStatusText");
+          if (syncStatusText) {
+            syncStatusText.innerHTML = `<i class="fa-solid fa-key"></i> เปลี่ยนรหัสผ่าน Admin PIN เป็น "${val}" เรียบร้อยแล้ว`;
+          }
         }
       });
     }
@@ -3432,7 +3603,7 @@ window.AppController = {
       attribution: "&copy; Google Satellite"
     });
 
-    const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    const osmLayer = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: "&copy; OpenStreetMap"
     });
@@ -3536,7 +3707,7 @@ window.AppController = {
       };
       this.selectedRouteIndex = 0;
 
-      // บันทึกประวัติการใช้งาน (ทะเบียนรถ & เส้นทาง) ลงฐานข้อมูลอัตโนมัติ
+      // บันทึกประวัติการใช้งาน (ทะเบียนรถ & เส้นทาง) ลงฐานข้อมูล Google Sheets Cloud อัตโนมัติ
       if (recordLog) {
         this.saveUsageLog({
           id: "log-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
@@ -3618,7 +3789,7 @@ window.AppController = {
     if (gmapBtn) {
       const origQuery = encodeURIComponent(`${req.originDistrict.split("(")[0].trim()} ${req.originProvince}`);
       const destQuery = encodeURIComponent(`${req.destDistrict.split("(")[0].trim()} ${req.destProvince}`);
-      gmapBtn.href = `https://www.google.com/maps/dir/?api=1&origin=${origQuery}&destination=${destQuery}&travelmode=driving`;
+      gmapBtn.href = "https://www.google.com/maps/dir/?api=1&origin=" + origQuery + "&destination=" + destQuery + "&travelmode=driving";
     }
   },
 
@@ -3683,9 +3854,6 @@ window.AppController = {
               <text x="450" y="126" fill="#0F172A" font-size="11" font-weight="bold" text-anchor="middle">${req.destProvince}</text>
             </svg>
             <div style="margin-top:0.75rem;">
-              <a href="https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(req.originDistrict.split("(")[0].trim() + " " + req.originProvince)}&destination=${encodeURIComponent(req.destDistrict.split("(")[0].trim() + " " + req.destProvince)}&travelmode=driving" target="_blank" class="btn btn-analyze" style="text-decoration:none;padding:0.5rem 1rem;font-size:0.82rem;">
-                📍 เปิดแผนที่นำทางจริงในแอป Google Maps
-              </a>
             </div>
           </div>
         `;
@@ -4115,15 +4283,17 @@ window.AppController = {
       `• แผนสำรอง: ${recommendations[5].decision}`
     ].join("\n");
 
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById("btnCopySummary");
-      const oldHtml = btn.innerHTML;
-      btn.innerHTML = `<i class="fa-solid fa-check"></i> คัดลอกสรุปส่ง LINE แล้ว!`;
-      setTimeout(() => { btn.innerHTML = oldHtml; }, 2500);
-    });
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById("btnCopySummary");
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = `<i class="fa-solid fa-check"></i> คัดลอกสรุปส่ง LINE แล้ว!`;
+        setTimeout(() => { btn.innerHTML = oldHtml; }, 2500);
+      }).catch(() => {});
+    }
   },
 
-  // MODULE 11: แสดงตารางประวัติผู้ใช้งาน ทะเบียนรถ และเส้นทางที่ใช้ + Export Excel (.CSV)
+  // MODULE 11: แสดงตารางประวัติผู้ใช้งาน ทะเบียนรถ และเส้นทางที่ใช้ + Export Excel (.CSV / .XLSX)
   renderUsageLogs() {
     const logs = this.getUsageLogs();
     const searchVal = (document.getElementById("logSearchInput")?.value || "").trim().toLowerCase();
@@ -4161,7 +4331,7 @@ window.AppController = {
       return;
     }
 
-    tbody.innerHTML = filtered.map((l, idx) => `
+    tbody.innerHTML = filtered.map((l) => `
       <tr>
         <td style="white-space:nowrap; color:#475569;">${l.timestamp}</td>
         <td><span class="plate-tag"><i class="fa-solid fa-truck"></i> ${l.licensePlate}</span></td>
@@ -4233,10 +4403,7 @@ window.AppController = {
 
   exportLogsToExcelCSV() {
     const logs = this.getUsageLogs();
-    if (logs.length === 0) {
-      alert("ยังไม่มีข้อมูลประวัติการใช้งานสำหรับส่งออก");
-      return;
-    }
+    if (logs.length === 0) return;
 
     const structuredRows = logs.map((l, idx) => {
       const fullPlate = l.licensePlate || "";
@@ -4351,7 +4518,6 @@ if (document.readyState !== "loading") {
     setTimeout(window.loadEnhancementLibraries, 50);
   });
 }
-
   </script>
 </body>
 </html>
